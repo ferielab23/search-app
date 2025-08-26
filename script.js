@@ -25,7 +25,6 @@ async function fetchJSON(url) {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();
   if (data.status && data.status !== "ok") {
-    // NewsAPI sometimes returns { status: "error", code, message }
     throw new Error(data.message || "API error");
   }
   return data;
@@ -57,7 +56,6 @@ async function fetchNewsQuery(query) {
 // ====== RENDER ======
 function displayBlogs(articles) {
   if (!Array.isArray(articles)) {
-    // If an error bubbled through as an object
     showStatus(articles?.error || "Something went wrong.", { error: true });
     return;
   }
@@ -143,3 +141,4 @@ searchButton.addEventListener("click", handleSearch);
   }
   displayBlogs(articles);
 })();
+
